@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     },
     isEmailVerified: {
         type: Boolean,
-        default: false
+        default: true
     },
     profilePhoto: {
         type: String,

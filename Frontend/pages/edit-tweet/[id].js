@@ -4,7 +4,6 @@ import Form from '@/components/Form';
 import router from 'next/router';
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import axios from 'axios';
 import { edit_Tweet , getTweetDetails} from '@/api';
 import { toast } from 'react-toastify';
 

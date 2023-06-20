@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 
 
 const Nav = () => {
-
     const pathName = usePathname()
     const router = useRouter();
     const [toggleDropdown,setToggleDropDown]=useState(false);
@@ -20,15 +19,15 @@ const Nav = () => {
         router.push('/')
     }
 
-    useEffect(()=>{
-            let data = localStorage.getItem('userData');
+useEffect(()=>{
+        var data = localStorage?.getItem('userData');
             if(!data)   setSignedIn(false);
             else{
-                data=   JSON.parse(data)
+                data= JSON.parse(data)
                 setUserData(data);
                 setSignedIn(true);
             }
-    },[])
+    },[pathName])
   return (
     <nav className="flex-between w-full mb-4 p-3 pt-5 ">
         <Link href="/" className="flex gap-2 flex-center">
@@ -48,7 +47,7 @@ const Nav = () => {
             {signedIn ? (
                 <div className="flex gap-3 md:gap-5 pr-5">
                     <Link href="/create-tweet" className="black_btn">
-                        Create Post
+                        Create Tweet
                     </Link>
 
                     <button type="button" onClick={signOut} className="outline_btn"> Sign Out</button>
@@ -94,10 +93,10 @@ const Nav = () => {
                         />
 
                         {toggleDropdown &&(
-                            <div className="dropdown">
+                            <div className="dropdown ">
                                 <Link
                                     href="/profile"
-                                    classname="dropdown_link"
+                                    className="dropdown_link"
                                     onClick={()=> setToggleDropDown(false)}
                                 >
                                     My Profile
@@ -107,7 +106,7 @@ const Nav = () => {
                                     className="dropdown_link"
                                     onClick={()=> setToggleDropDown(false)}
                                 >
-                                        Create Prompt
+                                    Create Tweet
                                 </Link>
 
                                 <button
@@ -116,7 +115,7 @@ const Nav = () => {
                                         setToggleDropDown(false);
                                         signOut();
                                     }}
-                                    classname="mt-5 w-full black_btn"
+                                    className="mt-5 w-full black_btn"
                                 >
                                     Sign Out
                                 </button>

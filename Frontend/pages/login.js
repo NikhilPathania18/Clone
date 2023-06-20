@@ -5,10 +5,9 @@ import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-function Login({signedIn,setSignedIn}) {
+function Login() {
     const [form, setForm] = useState({email:'', password:''})
     const router = useRouter();
-
     const handleChange = (e) => {
         setForm({...form, [e.target.name]:e.target.value})
     }
@@ -25,14 +24,10 @@ function Login({signedIn,setSignedIn}) {
                 }
                 localStorage.setItem('userData',JSON.stringify(data))
                 toast.success(res.data.message);
-                setSignedIn(true)
-                router.push("/")
-            }
-            else if(res){
-                toast.error(res.data.message)
+                router.push('/')
             }
             else{
-                toast.error("Something went wrong")
+                toast.error("Something went wrong..")
             }
         }
         catch{

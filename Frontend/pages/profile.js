@@ -5,15 +5,17 @@ import { getMyProfileTweets } from "@/api";
 import PromptCard from "@/components/PromptCard";
 import {toast } from 'react-toastify'
 import { deleteTweet } from "@/api";
+import EditForm from "@/components/Forms/EditForm";
 
-const TweetCardList = ({tweets, handleTagClick}) =>{
+const TweetCardList = ({tweets, deleted,setDeleted}) =>{
+  
 
     const router = useRouter();
 
     const handleDelete = async(tweet) =>{
       const res = await deleteTweet(tweet)
-      console.log(res)
       if(res&& res.data.success) toast.success('Tweet Deleted Succesfully')
+      setDeleted(true);
     }
     
     const handleEdit = async(tweet) => {
@@ -23,8 +25,11 @@ const TweetCardList = ({tweets, handleTagClick}) =>{
     return (
       <div className="mt-16 prompt_layout ">
         {
+          tweets.length==0&&<p className="items-center font-bold text-3xl text-gray-400 w-80">No tweets from this user</p>
+        }
+        {
           tweets.map((tweet)=>(
-            <PromptCard 
+            <EditForm 
               key={tweet._id}
               tweet={tweet}
               handleTagClick={()=>{}}
@@ -40,6 +45,8 @@ const TweetCardList = ({tweets, handleTagClick}) =>{
 const GetProfile = () => {
     const router = useRouter();
     const [tweets,setTweets] = useState([]);
+    const [edited,setEdited] = useState(false);
+    const [deleted, setDeleted] = useState(false);
 
 
     const getTweets = async() =>{
@@ -54,7 +61,12 @@ const GetProfile = () => {
 
     useEffect(()=>{
             getTweets();
-    },[])
+            setDeleted(false)
+    },[deleted])
+
+    useEffect(()=>{
+      
+    })
   return (
     <section className="feed" >
         {
@@ -62,6 +74,8 @@ const GetProfile = () => {
             <TweetCardList 
             tweets={tweets}
             handleTagClick={()=>{}}
+            deleted= {deleted}
+            setDeleted= {setDeleted}
             />
         }
         

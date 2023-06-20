@@ -8,6 +8,9 @@ const TweetCardList = ({tweets, handleTagClick}) =>{
     return (
       <div className="mt-16 prompt_layout ">
         {
+          tweets.length==0&&<p className="items-center font-bold text-3xl text-gray-400 w-80">No tweets from this user</p>
+        }
+        {
           tweets.map((tweet)=>(
             <PromptCard 
               key={tweet._id}

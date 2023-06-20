@@ -6,8 +6,11 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 const PromptCard = ({tweet, handleDelete, handleEdit}) => {
 
-  let link = `http://localhost:3000/profile/${tweet.creator._id}`
+  const [content, setContent] = useState(tweet.content);
+  const [tags, setTags] = useState(tweet?.tags)
+  const [editOn,setEditOn] = useState(false)
 
+  let link = `http://localhost:3000/profile/${tweet.creator._id}`
   const pathName= usePathname();
 
   const [signedIn,setSignedIn] = useState(false)
