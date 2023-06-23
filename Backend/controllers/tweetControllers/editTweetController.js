@@ -9,7 +9,6 @@ export const editTweetController = async(req,res) => {
         success: false,
         message: 'Tweet Not Found'
     })
- 
     existingTweet.content = tweet.content;
     existingTweet.tags = tweet.tags;
 

@@ -2,7 +2,6 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { getMyProfileTweets } from "@/api";
-import PromptCard from "@/components/PromptCard";
 import {toast } from 'react-toastify'
 import { deleteTweet } from "@/api";
 import EditForm from "@/components/Forms/EditForm";

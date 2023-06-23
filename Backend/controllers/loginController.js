@@ -12,8 +12,9 @@ export const loginController = async(req,res) => {
         success: false,
         message: 'User Not found'
     })
-
-    if(!comparePasswword(password,user.password))   return res.status(200).send({
+    const doesMatch = await comparePasswword(password,user.password)
+    
+    if(!doesMatch)   return res.status(200).send({
         succes: false,
         message: 'Invalid credentials'
     })

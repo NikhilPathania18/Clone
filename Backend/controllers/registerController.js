@@ -1,9 +1,6 @@
 import User from "../models/user.js"
 import { hashPassword } from "../helpers/encrypt.js";
-import sendEmail from '../helpers/sendEmail.js'
-import jwt from 'jsonwebtoken'
 import uploadFile from '../middlewares/awsMiddleware.js'
-import aws from 'aws-sdk'
   
 export const registerController = async(req,res) =>{
     const {username, name, email, password} = req.body;
@@ -55,6 +52,12 @@ export const registerController = async(req,res) =>{
     //upload file to aws and get image link
     let profilePhoto
     let file = req.file;
+    if(!file)
+    return res.status(200).send({
+        success: false,
+        message: 'Profile Photo is required'
+    })
+
     file.originalname = username
     try {
         const imageUrl = await uploadFile(file);
@@ -72,19 +75,6 @@ export const registerController = async(req,res) =>{
             password: hashedPassword,
             profilePhoto,
         }).save();
-
-        let Token
-        await jwt.sign({user},process.env.JWT_SECRET,(err,token) => {
-            if(err){
-                return res.status(500).send({
-                    success: false,
-                    message: 'Error while generating the token'
-                })
-            }
-            else    Token = token;
-          })
-
-        sendEmail(name,email,Token)
 
         return res.status(200).send({
             success: true,

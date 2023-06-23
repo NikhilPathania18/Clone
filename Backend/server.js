@@ -10,8 +10,6 @@ import bodyparser from 'body-parser'
 import profileRoutes  from './routes/profileRoutes.js';
 
 const app = express();
-
-// app.use(bodyparser.json({extended:false}))
 app.use(express.json())
 app.use(cors());
 dotenv.config();
